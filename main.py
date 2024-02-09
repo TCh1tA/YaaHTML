@@ -79,7 +79,15 @@ def form1():
     if request.method == 'GET':
         return render_template("form1.html")
     else:
-        return render_template("base.html")
+        return render_template("answer.html")
+
+
+@app.route('/answer')
+def answ():
+    profil = {}
+    profil['email'] = 'email'
+    profil['class'] = 'class'
+    return render_template('answer.html', **profil)
 
 
 if __name__ == '__main__':

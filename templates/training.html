@@ -2,7 +2,7 @@
 {% block content %}
 
 
-{% if "инженер" or "строитель" in prof %}
+{% if "инженер" is in prof or "строитель" is in prof %}
 <h1> Инженерные тренажеры </h1>
 <img src="/static/img/science.png">
 {% else %}

@@ -80,7 +80,7 @@ def add_user():
     user.position = 'capitan'
     user.email = 'sr@mars.com'
     user.speciality = 'resercher'
-    user.hashed_password = '123'
+    user.set_password('123')
     user.address = 'module 1'
     sess.add(user)
     sess.commit()

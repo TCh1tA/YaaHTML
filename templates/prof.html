@@ -1,19 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-<h1> Список профессий </h1>
-{% if znak == "ol"%}
+<h2> Список профессий</h2>
+{% if znak == "ol" %}
     <ol>
-        {% for el in list%}
-        <li>{{ el }}</li>
+        {% for el in list %}
+            <li>{{ el }}</li>
         {% endfor %}
     </ol>
-{% elif znak == "ul"%}
+{% elif znak == "ul" %}
     <ul>
-        {% for el in list%}
-        <li>{{ el }}</li>
+        {% for el in list %}
+            <li>{{ el }}</li>
         {% endfor %}
     </ul>
-{% endif %}
+{% endif%}
 {% endblock %}

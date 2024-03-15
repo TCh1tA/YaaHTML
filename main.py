@@ -82,8 +82,8 @@ def zapros():
 def main():
     db_session.global_init("db/mars.db")
     zapros()
-    # add_user()
-    # add_jobs()
+    add_user()
+    add_jobs()
     app.run('127.0.0.1', port=80)
 
 

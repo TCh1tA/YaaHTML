@@ -12,30 +12,38 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
+    if form.submit:
+        print('COCKCOCK')
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
-        if user and user.check_password(form.password.data):
+        print(user.hashed_password)
+        print(form.password.data)
+        if user.hashed_password and user.check_password(form.password.data):
             login_user(user, form.remember_me.data)
             return redirect('/succes')
         else:
             return render_template('login.html', message='Неверно', form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
+
 @app.route('/succes')
 def suc():
     return 'Успешно'
 
-# def login_user(user, remember=False):
-#     pass
+
+def login_user(user, remember=False):
+    pass
+
 
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
+
 
 @app.route('/index')
 @app.route('/')
@@ -60,9 +68,7 @@ def form1():
     if request.method == 'GET':
         return render_template('form1.html')
     else:
-        profil = {}
-        profil['email'] = request.form.get('email')
-        profil['class'] = request.form.get('class')
+        profil = {'email': request.form.get('email'), 'class': request.form.get('class')}
         return render_template('answer.html', **profil)
 
 
@@ -111,9 +117,9 @@ def zapros():
 
 def main():
     db_session.global_init("db/mars.db")
-    zapros()
-    add_user()
-    add_jobs()
+    # zapros()
+    # add_user()
+    # add_jobs()
     app.run('127.0.0.1', port=80)
 
 

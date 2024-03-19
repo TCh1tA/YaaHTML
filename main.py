@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-from data import db_session
+from data import db_session, jopan_api, job_api
 from data.jobs import Jobs
 from data.users import User
 from data.login_form import LoginForm
@@ -16,12 +16,9 @@ login_manager.init_app(app)
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.submit:
-        print('COCKCOCK')
+    if form.is_submitted():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
-        print(user.hashed_password)
-        print(form.password.data)
         if user.hashed_password and user.check_password(form.password.data):
             login_user(user, form.remember_me.data)
             return redirect('/succes')
@@ -120,6 +117,8 @@ def main():
     # zapros()
     # add_user()
     # add_jobs()
+    app.register_blueprint(job_api.blueprint)
+    app.register_blueprint(jopan_api.blueprint)
     app.run('127.0.0.1', port=80)
 
 
